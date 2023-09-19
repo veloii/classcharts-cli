@@ -7,7 +7,7 @@
   "scripts": {
     "build": "swc src --out-dir dist",
     "dev:build": "swc src --out-dir dist --watch",
-    "dev:run": "nodemon dist/index.js"
+    "dev:run": "node dist/index.js"
   },
   "dependencies": {
     "chalk": "^5.3.0",
