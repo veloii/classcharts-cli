@@ -7,7 +7,7 @@ export function getConfigDirectory() {
       return `${base}/classcharts-cli`;
     case "darwin":
       return `${process.env.HOME}/Library/Application Support/classcharts-cli`;
-    case "win32":
+    case "windows_nt":
       return `${process.env.APPDATA}/classcharts-cli`;
     default:
       throw new Error("Unsupported platform");
