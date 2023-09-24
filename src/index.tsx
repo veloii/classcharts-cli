@@ -52,7 +52,7 @@ const Index = () => {
     return (
       <Box flexDirection="column">
         <Box>
-          <Text>Access Code:</Text>
+          <Text>Access Code:{" "}</Text>
           <TextInput
             onChange={setAccessCode}
             value={accessCode}
@@ -66,7 +66,7 @@ const Index = () => {
 
         {setup === "dob" && (
           <Box>
-            <Text>Date of Birth {"(DD/MM/YYYY)"}:</Text>
+            <Text>Date of Birth {"(DD/MM/YYYY)"}:{" "}</Text>
             <TextInput
               placeholder="04/06/2006"
               onChange={setDob}
