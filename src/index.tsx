@@ -1,4 +1,4 @@
-import { Box, Text, render } from "ink";
+import { Box, render, Text } from "ink";
 import React, { useEffect } from "react";
 import Sidebar from "./components/side-bar.js";
 import Table from "./components/table.js";
@@ -8,6 +8,7 @@ import Home from "./components/home.js";
 import fs from "fs";
 import TextInput from "./lib/input.js";
 import { useStudentClient } from "./contexts/student-client.js";
+import { createConfigDirectory } from "./lib/config.js";
 
 const Index = () => {
   const { currentPage } = useCurrentPage();
@@ -16,6 +17,7 @@ const Index = () => {
   const [accessCode, setAccessCode] = React.useState("");
   const [dob, setDob] = React.useState("");
   const { hydrateClient } = useStudentClient();
+  const configDirectory = createConfigDirectory();
 
   const tryLogin = async (options: { accessCode: string; dob: string }) => {
     try {
@@ -33,7 +35,7 @@ const Index = () => {
 
   useEffect(() => {
     try {
-      const account = fs.readFileSync("account.json");
+      const account = fs.readFileSync(configDirectory + "/account.json");
       const { accessCode, dob } = JSON.parse(account.toString());
 
       if (!accessCode || !dob) {
@@ -50,7 +52,7 @@ const Index = () => {
     return (
       <Box flexDirection="column">
         <Box>
-          <Text>Access Code: </Text>
+          <Text>Access Code:{" "}</Text>
           <TextInput
             onChange={setAccessCode}
             value={accessCode}
@@ -64,7 +66,7 @@ const Index = () => {
 
         {setup === "dob" && (
           <Box>
-            <Text>Date of Birth {"(DD/MM/YYYY)"}: </Text>
+            <Text>Date of Birth {"(DD/MM/YYYY)"}:{" "}</Text>
             <TextInput
               placeholder="04/06/2006"
               onChange={setDob}
@@ -72,11 +74,12 @@ const Index = () => {
               showCursor
               onSubmit={() => {
                 fs.writeFileSync(
-                  "account.json",
+                  configDirectory +
+                    "/account.json",
                   JSON.stringify({
                     accessCode,
                     dob,
-                  })
+                  }),
                 );
 
                 tryLogin({ accessCode, dob });
@@ -109,5 +112,5 @@ const Index = () => {
 render(
   <Providers>
     <Index />
-  </Providers>
+  </Providers>,
 );
