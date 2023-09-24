@@ -1,5 +1,6 @@
 {
   "name": "classcharts-cli",
+  "bin": "./bin/classcharts-cli.js",
   "version": "1.0.0",
   "description": "A CLI for ClassCharts",
   "type": "module",
